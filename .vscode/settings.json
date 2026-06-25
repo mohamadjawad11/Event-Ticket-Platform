@@ -1,0 +1,9 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "folder-color.pathColors": [],
+  "java.project.sourcePaths": ["backend/src/main/java"],
+  "maven.pomfile.globPattern": "**/backend/pom.xml",
+  "java.import.maven.enabled": true,
+  "java.project.referencedLibraries": [],
+  "java.import.rootFolders": ["backend"]
+}

@@ -1,0 +1,55 @@
+
+1) I created the enum classes that will be used in other entities and they are as follow:
+    - EventStatusEnum which will be used in the Event entity to indicate the status of the event.
+    - QrCodeStatusEnum which will be used in the QrCode entity to indicate the status of the QR code.
+    - TicketStatusEnum which will be used in the Ticket entity to indicate the status of the ticket.
+    - TicketValidationStatusEnum which will be used in the TicketValidation entity to indicate the status of   the ticket validation.
+    - TicketValidationMethodEnum which will be used in the TicketValidation entity to indicate the method used to validate the ticket.
+
+
+2) I created the entities that will be used in the application and they are as follow:
+    - Event entity which will represent the event that will be created by the user.
+    - QrCode entity which will represent the QR code that will be generated for the event.
+    - Ticket entity which will represent the ticket that will be generated for the event.
+    - TicketValidation entity which will represent the validation of the ticket.
+    - User entity which will represent the user that will be created by the user.
+    
+
+3) I created inside the filter folder the UserProvisioning filter that will every time an             authenticated request comes in, check if this Keycloak user exists in our DB. If not, create them automatically.
+  How this filter works:
+        Every incoming HTTP request passes through it. It checks:
+        Is there an authenticated user in this request?
+        Is their principal a JWT (from Keycloak)?
+        Does this user already exist in our DB?
+        If not → create them automatically
+
+this filter runs after the jwt is validated and before moving into the controller,I implemented
+this flow using: .addFilterAfter(userProvisioningFilter, BearerTokenAuthenticationFilter.class); 
+in the SecurityConfig.java file.
+
+
+4) I created inside the config folder the SecurityConfig.java file that will configure the security of the application. I created the function:JwtAuthenticationConverter which will convert the JWT token into a JWTAuthenticationToken that will be used to validate the user so this funcion teaches spring how to extract roles from the keycloak jwt token.
+then I created the function filterChain,Spring injects userProvisioningFilter and jwtAuthenticationConverter automatically as parameters since they're both @Bean,this 
+function will configure the authorization of the application who can access what endpoints.
+CSRF protection is for browser-based apps with cookies. Since this is a REST API using JWT in headers, CSRF is irrelevant and disabled.
+Session management is also disabled since we're using JWT for authentication.Tells Spring never store sessions on the server. Every request must carry its own JWT. No cookies, no server memory of previous requests.
+
+Full Security Flow till now:
+Incoming Request
+      ↓
+BearerTokenAuthenticationFilter
+  → reads Authorization: Bearer <token>
+  → validates JWT with Keycloak public key
+  → uses jwtAuthenticationConverter to extract roles
+  → populates SecurityContextHolder
+      ↓
+UserProvisioningFilter
+  → checks if this Keycloak user exists in DB
+  → if not, creates them
+      ↓
+Authorization Check
+  → does this user have the required role for this endpoint?
+      ↓
+Controller
+
+I don't call it anywhere manually. Spring loads @Configuration classes at startup, builds the filter chain, and applies it automatically to every incoming HTTP request. The whole thing is wired and running without you ever invoking it explicitly.
