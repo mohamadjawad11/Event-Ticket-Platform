@@ -1,4 +1,4 @@
-package com.mhmd_dev.Event_Ticket_Platform.domain;
+package com.mhmd_dev.Event_Ticket_Platform.domain.Entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,6 +49,9 @@ public class Ticket {
   @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
   @JoinColumn(name = "purchaser_id")
   private User purchaser;
+
+  @Column(name = "description", nullable = true)
+  private String description;
 
   @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
   private List<TicketVlidation> validations=new ArrayList<>();

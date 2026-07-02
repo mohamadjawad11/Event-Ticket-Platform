@@ -1,4 +1,4 @@
-package com.mhmd_dev.Event_Ticket_Platform.domain;
+package com.mhmd_dev.Event_Ticket_Platform.domain.Entities;
 
 import java.util.UUID;
 

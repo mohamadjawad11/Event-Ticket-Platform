@@ -1,4 +1,4 @@
-package com.mhmd_dev.Event_Ticket_Platform.domain;
+package com.mhmd_dev.Event_Ticket_Platform.domain.Entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
+
+import com.mhmd_dev.Event_Ticket_Platform.domain.TicketTypeRequest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

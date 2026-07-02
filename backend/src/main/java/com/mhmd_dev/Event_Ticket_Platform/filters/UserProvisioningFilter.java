@@ -4,7 +4,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.mhmd_dev.Event_Ticket_Platform.domain.User;
+
+import com.mhmd_dev.Event_Ticket_Platform.domain.Entities.User;
 import com.mhmd_dev.Event_Ticket_Platform.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;

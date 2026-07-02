@@ -53,3 +53,37 @@ Authorization Check
 Controller
 
 I don't call it anywhere manually. Spring loads @Configuration classes at startup, builds the filter chain, and applies it automatically to every incoming HTTP request. The whole thing is wired and running without you ever invoking it explicitly.
+
+
+5)I created the IService folder which will contains all the service interfaces and the serviceImpl folder which will contain all the service implementations.
+I started with IEventService and EventServiceImpl with the createEvent function that accepts 2 
+parameters the event object and the id for the organizer of the event,when I was creating and implementing the logic in this function I created 2 repository files one for event and one for
+user,the event repository I used it so save the event in the createEvent function and the user repository I used it to get the organizer of the event and check if he exists in the database or not.
+Also I did not use the event and ticket entities directly I created 2 files CreateEventRequest and TicketTypeRequest and I used them in the createEvent function to create the event and the ticket types.
+
+
+
+Controller uses DTOs
+        ↓
+Mapper converts DTO to request object
+        ↓
+Service uses CreateEventRequest / TicketTypeRequest
+        ↓
+Service creates Event / TicketType entities
+        ↓
+Repository saves entities to database
+
+
+So:
+
+CreateEventRequestDto       → used by Controller
+TicketTypeRequestDto        → used by Controller
+
+CreateEventRequest          → used by Service
+TicketTypeRequest           → used by Service
+
+Event                       → database Entity
+TicketType                  → database Entity
+
+
+

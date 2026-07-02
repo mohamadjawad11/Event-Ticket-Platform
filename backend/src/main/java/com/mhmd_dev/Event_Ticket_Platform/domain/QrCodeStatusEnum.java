@@ -1,6 +1,0 @@
-package com.mhmd_dev.Event_Ticket_Platform.domain;
-
-public enum QrCodeStatusEnum {
-  ACTIVE,
-  EXPIRRED
-}

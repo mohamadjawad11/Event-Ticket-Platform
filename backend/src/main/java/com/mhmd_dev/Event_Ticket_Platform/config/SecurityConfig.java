@@ -1,10 +1,8 @@
 package com.mhmd_dev.Event_Ticket_Platform.config;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import com.mhmd_dev.Event_Ticket_Platform.filters.UserProvisioningFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +42,7 @@ public class SecurityConfig {
     return authenticationConverter;
   }
 
-  @Bean
+  @Bean //this allows the function to be injected into other classes
   public SecurityFilterChain filterChain(
       HttpSecurity http,
       UserProvisioningFilter userProvisioningFilter,
